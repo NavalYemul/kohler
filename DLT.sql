@@ -1,6 +1,7 @@
 -- Databricks notebook source
 Create STREAMING LIVE TABLE sales_bronze
 Comment "Sales Bronze table"
+TABLEPROPERTIES("")
 as
 select *,current_timestamp() as ingestion_date from cloud_files("dbfs:/mnt/adlscloudthat/raw/dlt_input/sales/","csv", map("cloudFiles.inferColumnTypes","True"))
 
