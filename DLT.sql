@@ -1,5 +1,6 @@
 -- Databricks notebook source
 Create STREAMING LIVE TABLE sales_bronze
+Comment "Sales Bronze table"
 as
 select *,current_timestamp() as ingestion_date from cloud_files("dbfs:/mnt/adlscloudthat/raw/dlt_input/sales/","csv", map("cloudFiles.inferColumnTypes","True"))
 
@@ -72,11 +73,3 @@ SELECT s.order_id,s.customer_id,s.total_amount,c.customer_name,c.customer_city
 FROM LIVE.sales_silver as s
 INNER JOIN LIVE.customer_silver as c
 ON s.customer_id=c.customer_id
-
--- COMMAND ----------
-
-select customer_id,sum(total_amount) as sum_amount from hive_metastore.dlt_ny.sales_customers group by customer_id
-
--- COMMAND ----------
-
-
